@@ -5,6 +5,8 @@ import selecter
 import config
 import subprocess
 import outputter
+import os
+import json
 
 @click.group()
 def cli():
@@ -76,6 +78,44 @@ def output(out=""):
     else:
         with open(out, "w") as f:
             f.write(outputter.write_markdown(se.articleList, c.articlepath))
+
+@cli.command()
+def delete():
+    """ delete file"""
+    se = selecter.selecter()
+    c = config.config()
+
+    # pipe to peco
+    data = se.info_to_shaped_str().encode('utf-8')
+    po = subprocess.Popen("peco",
+                          stdin=subprocess.PIPE,
+                          stdout=subprocess.PIPE)
+    out, err = po.communicate(data)
+    
+    path = out.decode('utf-8').split(":")[-1].strip("\n")
+    if path=="":
+        return
+
+    # delete selected file
+    os.remove(c.articlepath+path)
+    
+    # delete info
+    infolist = list()
+    for ar in se.articleList:
+        if ar['path'] != path:
+            infolist.append(ar)
+    with open(c.infopath, "w") as f:
+        for i in infolist:
+            f.write(json.dumps(i))
+            f.write("\n")
+
+
+
+
+
+
+
+
 
 
 

@@ -9,7 +9,7 @@ class config():
         self.configpath = configpath
         self.__homepath = ""
         self.__editor = "vim"
-        self.__infopath = ""
+        self.__infopath = "./infoooo"
         self.__articlepath = ""
         self.register()
 
@@ -39,6 +39,7 @@ class config():
             f.close()
         if not (os.path.exists(self.articlepath)):
             os.makedirs(self.articlepath)
+        self.infopath = "./infoooo"
 
 
 
