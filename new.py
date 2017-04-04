@@ -12,20 +12,22 @@ def new_command(context):
     dt = datetime.datetime.today()
 
     # make directory and filepath
-    filepath = create_filepath(context['config'].homepath, dt)
+    filepath = create_filepath(context['config'].articlepath, dt)
+    # make relative file path
+    rpath = filepath[len(context['config'].articlepath):]
     print("made" + filepath)
     
     # make info data
     file_info =\
     info.info(title=context['title'], tag=context['tag'],\
-              genre=context['genre'], path=filepath, createDate=dt)
+              genre=context['genre'], path=rpath, createDate=dt)
     print(file_info.dump_json())
 
     # save info data
     file_info.save_info(context['config'].infopath)
 
     # write header
-    write_header(file_info)
+    write_header(file_info, context['config'].articlepath)
 
     # open file by editor
     os.system(context['config'].editor + " " + filepath)
@@ -58,10 +60,11 @@ def generate_filepath(datetime, dir_path): # {{{
     filepath = dir_path + fname + ".md"
     return filepath
 # }}}
-def write_header(info):
+def write_header(info, articlepath):
     """ write header data to file """
     str = "# " + info.title
-    with open(info.path, 'w') as f:
+    filepath = articlepath + info.path
+    with open(filepath, 'w') as f:
         f.write(str)
 
 

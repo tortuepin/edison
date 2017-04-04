@@ -52,7 +52,7 @@ def edit(): #{{{
         return
 
     # open with editor
-    cmd = [c.editor, path]
+    cmd = [c.editor, c.articlepath + path]
     subprocess.call(cmd)
 
     print(path)
@@ -69,12 +69,13 @@ def ls():
 @click.option('--out', '-o',  type=str)
 def output(out=""):
     """ output as markdown"""
+    c = config.config()
     se = selecter.selecter()
     if out == None:
-        print(outputter.write_markdown(se.articleList))
+        print(outputter.write_markdown(se.articleList, c.articlepath))
     else:
         with open(out, "w") as f:
-            f.write(outputter.write_markdown(se.articleList))
+            f.write(outputter.write_markdown(se.articleList, c.articlepath))
 
 
 

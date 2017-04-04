@@ -4,7 +4,7 @@ import sys
 import datetime as dt
 
 
-def write_markdown(sorted_articles):
+def write_markdown(sorted_articles, articlepath):
     """ write html file """
     tmp = ""
 
@@ -18,7 +18,7 @@ def write_markdown(sorted_articles):
             dtime_a = dtime
 
         # write article content
-        with open(article['path'], 'r') as k:
+        with open(articlepath + article['path'], 'r') as k:
             s = k.read()
             tmp += (s + "\n\n")
 

@@ -9,3 +9,4 @@ def ljust(string, length):
             count_length += 2
 
     return string + (length-count_length) * ' '
+
