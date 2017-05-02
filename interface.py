@@ -65,7 +65,8 @@ def ls():
     """ print article list"""
     # get article list
     se = selecter.selecter()
-    print(se.info_to_shaped_str())
+    print(se.info_to_str())
+    #print(se.info_to_shaped_str())
 
 @cli.command()
 @click.option('--out', '-o',  type=str)

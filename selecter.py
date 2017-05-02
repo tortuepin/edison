@@ -24,6 +24,14 @@ class selecter():
             lines = f.readlines()
         return  [a for a in map(json.loads, lines) if self.filterfunc(a)]
 
+    def info_to_str(self):
+        """ return articles as str """
+        s = ""
+        for dic in self.articleList:
+            l = [dic['title'], dic['genre'], dic['tag'], dic['createDate'], dic['modifiedDate'], dic['path']]
+            s = s + "\n" + ":".join(l)
+        return s.strip()
+
     def info_to_shaped_str(self):
         # TODO make this be able to select format
         s = ""
