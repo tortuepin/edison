@@ -28,8 +28,8 @@ class selecter():
         """ return articles as str """
         s = ""
         for dic in self.articleList:
-            l = [dic['title'], dic['genre'], dic['tag'], dic['createDate'], dic['modifiedDate'], dic['path']]
-            s = s + "\n" + ":".join(l)
+            l = map(str, [dic['title'], dic['genre'], dic['tag'], dic['createDate'], dic['modifiedDate'], dic['path']])
+            s = s + "\n" + "\t".join(l)
         return s.strip()
 
     def info_to_shaped_str(self):
@@ -39,7 +39,7 @@ class selecter():
             l = [utils.ljust(dic['title'], 10), utils.ljust(dic['genre'], 10), 
                  utils.ljust(', '.join(dic['tag'])[0:10], 10), dic['createDate'][0:10].ljust(12),
                  dic['modifiedDate'][0:10].ljust(12), dic['path']]
-            s = s + "\n" + ":".join(l)
+            s = s + "\n" + "\t".join(l)
         return s.strip()
         
     def filterfunc(self, arg):
@@ -54,13 +54,9 @@ class selecter():
 if __name__ == '__main__':
     se = selecter()
     ope = operator.attrgetter('tag')
-    print(se.articleList[0])
-    print(type(se.articleList[0]))
-    print(se.articleList[0].keys())
-    print(se.articleList[0]['tag'])
-    ss = sorted(se.articleList, key=lambda a:a['title'])
-    for k in ss:
-        print(k)
+    print(se.info_to_str())
+    print("\n")
+    print(se.info_to_shaped_str())
 
 
 

@@ -49,7 +49,7 @@ def edit(): #{{{
     # TODO save modified time
 
     # get path
-    path = out.decode('utf-8').split(":")[-1].strip("\n")
+    path = out.decode('utf-8').split("\t")[-1].strip("\n")
     if path=="":
         return
 
