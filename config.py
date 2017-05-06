@@ -11,21 +11,23 @@ class config():
         self.__editor = "vim"
         self.__infopath = ""
         self.__articlepath = ""
+        self.__searcher = "peco"
         self.register()
 
 
     def register(self):
-        if len(self.configpath) == 0:
-            home = os.path.expanduser('~')
-            if not(home+"/edison"):
-                os.makedirs(home)
+        #if len(self.configpath) == 0:
+        #    home = os.path.expanduser('~')
+        #    if not(home+"/edison"):
+        #        os.makedirs(home)
         conf = {}
         if os.path.exists(self.configpath):
             with open(self.configpath, "r") as f:
                 data = f.read()
                 conf = toml.loads(data)
         else:
-            f = open(self.configpath, "w")
+            os.makedirs(os.path.split(self.configpath)[0])
+            f = open(self.configpath, "a")
             f.close()
 
         self.homepath = conf['homepath'] if 'homepath' in conf else os.path.expanduser('~')+"/edison"
@@ -34,6 +36,8 @@ class config():
                                          else self.homepath + "/" + "info"
         self.articlepath = conf['articlepath'] if 'articlepath' in conf\
                                          else self.homepath + "/" + "article"
+        self.searcher = conf['searcher'] if 'searcher' in conf\
+                                         else "peco"
         if not (os.path.exists(self.infopath)):
             f = open(self.infopath, 'w')
             f.close()
@@ -67,6 +71,12 @@ class config():
     @articlepath.setter
     def articlepath(self, articlepath):
         self.__articlepath = articlepath
+    @property
+    def searcher(self):
+        return self.__searcher
+    @searcher.setter
+    def searcher(self, searcher):
+        self.__searcher = searcher
         
 if __name__ == '__main__':
     c = config()

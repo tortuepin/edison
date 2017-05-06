@@ -41,7 +41,7 @@ def edit(): #{{{
 
     # pipe to peco
     data = se.info_to_shaped_str().encode('utf-8')
-    po = subprocess.Popen("peco",
+    po = subprocess.Popen(c.searcher,
                           stdin=subprocess.PIPE,
                           stdout=subprocess.PIPE)
     out, err = po.communicate(data)
@@ -88,7 +88,7 @@ def delete():
 
     # pipe to peco
     data = se.info_to_shaped_str().encode('utf-8')
-    po = subprocess.Popen("peco",
+    po = subprocess.Popen(c.searcher,
                           stdin=subprocess.PIPE,
                           stdout=subprocess.PIPE)
     out, err = po.communicate(data)
